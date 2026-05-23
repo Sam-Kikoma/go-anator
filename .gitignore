@@ -1,0 +1,14 @@
+.idea/
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+
+# Neovim / Vim swap files
+[._]*.s[a-v][a-z]
+!*.svg
+[._]*.un~
+Session.vim
+.netrwhist
