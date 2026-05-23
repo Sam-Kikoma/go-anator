@@ -2,41 +2,46 @@ package main
 
 import "testing"
 
-func TestGreet_English(t *testing.T) {
-	lang := language("en")
-	want := "Hello World"
+func TestGreet(t *testing.T) {
+	type testCase struct{
+		lang language
+		want string
+	}
 
-	got := greet(lang)
+	var tests = map[string]testCase{
+		"English":{
+			lang:"en",
+			want:"Hello World",
+		},
+		"French":{
+			lang:"fr",
+			want:"Bonjour le Monde",
+		},
+		"Greek":{
+			lang:"el",
+			want:"Χαίρετε κόσμε",
+		},
+		"Swahili":{
+			lang:"sw",
+			want:"Habari dunia",
+		},
+		"Akkadian": {
+			lang: "akk",
+			want: `Unsupported language: "akk" `,
+		},
+		"Empty": {
+			lang:"",
+			want: `Unsupported language: ""`,
+		},
+	}
 
-	if got != want {
-		//test has failed
-		t.Errorf("expected: %q, Got: %q", got, want)
+	for name, tc := range tests {
+		t.Run(name,func(t *testing.T){
+			got := greet(tc.lang)
+
+			if got != tc.want{
+				t.Errorf("expected %q, got: %q",tc.want,got)
+			}
+		})
 	}
 }
-
-func TestGreet_French(t *testing.T) {
-	lang := language("fr")
-	want := "Bonjour le Monde"
-
-	got := greet(lang)
-
-	if got != want {
-		//test has failed
-		t.Errorf("expected: %q, Got: %q", got, want)
-	}
-}
-
-func TestGreet_Akkadian(t *testing.T) {
-	//Akkadian is not implemented in the greet function, so we expect an empty string
-	lang := language("akk")
-	want := ""
-
-	got := greet(lang)
-
-	if got != want {
-		//test has failed
-		t.Errorf("expected: %q, Got: %q", got, want)
-	}
-}
-
-//Stopping point was 2.3.1
