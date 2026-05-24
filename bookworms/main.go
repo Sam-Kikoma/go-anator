@@ -8,7 +8,7 @@ import (
 
 func main() {
 	var bookPath string
-	flag.StringVar(&bookPath,"path","","Enter a valid path eg <path>/<file.json>")
+	flag.StringVar(&bookPath,"path","testdata/bookworms.json","Enter a valid path eg <path>/<file.json>")
 	flag.Parse()
 
 	bookworms, err := loadBookworms(bookPath)
@@ -21,6 +21,9 @@ func main() {
 
 	fmt.Println("Here are the books in common:")
 	displayBooks(commonBooks)
+
+	recommendations := recommendOtherBooks(bookworms)
+	displayRecommendations(recommendations)
 }
 
 func displayBooks(books []Book){
@@ -29,4 +32,10 @@ func displayBooks(books []Book){
 	}
 }
 
-//stopping point - 3.4.1
+func displayRecommendations(recommendations []Bookworm) {
+	for _, bookworm := range recommendations {
+		fmt.Printf("\nHere are the recommendations for %s:\n", bookworm.Name)
+		displayBooks(bookworm.Books)
+		fmt.Println()
+	}
+}
