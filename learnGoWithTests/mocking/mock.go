@@ -38,15 +38,11 @@ func (c *ConfigurableSleeper) Sleep(){
 }
 
 func Countdown(out io.Writer, sleeper Sleeper) {
-	for i := countdownStart; i > 0; i-- {
-		sleeper.Sleep()
-	}
-
-	for i := countdownStart; i > 0; i-- {
-		fmt.Fprintln(out, i)
-	}
-
-	fmt.Fprint(out, finalWord)
+    for i := countdownStart; i > 0; i-- {
+        fmt.Fprintln(out, i)
+        sleeper.Sleep()
+    }
+    fmt.Fprint(out, finalWord)
 }
 
 func main() {
